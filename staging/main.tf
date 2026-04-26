@@ -14,3 +14,15 @@ provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
 }
+
+#Create a staging resource group
+resource "azurerm_resource_group" "rg-staging" {
+  name     = var.rgname
+  location = var.location
+}
+
+module "service_principal" {
+  source = "../modules/service_principal"
+  service_principal_name = var.service_principal_name 
+  depends_on = [ azurerm_resource_group.rg-staging ]
+}

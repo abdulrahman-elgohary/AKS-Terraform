@@ -16,3 +16,16 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
+#Create a dev resource group
+resource "azurerm_resource_group" "rg-dev" {
+  name     = var.rgname
+  location = var.location
+}
+
+#Use the Service Principal module
+module "service_principal" {
+  source = "../modules/service_principal"
+  service_principal_name = var.service_principal_name 
+  depends_on = [ azurerm_resource_group.rg-dev ]
+}
+ 
