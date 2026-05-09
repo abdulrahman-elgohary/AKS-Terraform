@@ -1,4 +1,4 @@
- # Create a backend block for azure in the Dev Environment
+# Create a backend block for azure in the Dev Environment
 terraform {
   backend "azurerm" {
     resource_group_name  = "dev-terraform-rg"

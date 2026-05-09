@@ -17,3 +17,8 @@ variable service_principal_name {
     type = string
     description = "Name of the Service Principal to be created"
 }
+
+variable keyvault_name {
+    type = string
+    description = "Name of the Key Vault to be created"
+}
