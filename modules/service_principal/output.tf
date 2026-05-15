@@ -4,7 +4,7 @@ output "service_principal_name" {
 }
 
 output "service_principal_object_id" {
-  value = azuread_service_principal.main_sp.id
+  value = azuread_service_principal.main_sp.object_id
   description = "The object id of service principal. Can be used to assign roles to user."
 }
 

@@ -3,4 +3,4 @@ rgname                 = "rg-dev"
 location               = "spaincentral"
 service_principal_name = "sp-dev"
 
-keyvault_name = "dev-key-vault"
+keyvault_name = "dev-key-vault-abdul97"

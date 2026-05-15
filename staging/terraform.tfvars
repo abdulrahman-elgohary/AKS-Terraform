@@ -3,4 +3,4 @@ location = "spaincentral"
 rgname = "rg-staging"
 service_principal_name = "sp-staging"
 
-keyvault_name = "staging-key-vault"
+keyvault_name = "staging-key-vault-97"

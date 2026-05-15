@@ -21,11 +21,31 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
+ data "azurerm_client_config" "current" {}
+
 #Create a dev resource group
 resource "azurerm_resource_group" "rg-dev" {
   name     = var.rgname
   location = var.location
 }
+
+
+#Create an RBAC Role for the Service Principal to access the Key Vault
+resource "azurerm_role_assignment" "keyvault_contributor_role" {
+  scope                = "/subscriptions/${var.subscription_id}"
+  role_definition_name = "Contributor"
+  principal_id         = module.service_principal.service_principal_object_id
+  depends_on           = [module.service_principal]
+}
+
+# Create an RBAC Role for Terraform to be able to create secrets inside the key vault
+resource "azurerm_role_assignment" "terraform_key_vault_officer" {
+  scope                = module.keyvault.keyvault_id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
+  depends_on           = [module.service_principal]
+}
+
 
 #Use the Service Principal module
 module "service_principal" {
@@ -35,18 +55,10 @@ module "service_principal" {
 }
 
 
-#Create an RBAC Role 
-resource "azurerm_role_assignment" "keyvault_contributor_role" {
-  scope                = "/subscriptions/${var.subscription_id}"
-  role_definition_name = "Contributor"
-  principal_id         = module.service_principal.service_principal_object_id
-  depends_on           = [module.service_principal]
-}
-
-
+# Use the Key vault Module 
 module "keyvault" {
   source                      = "../modules/keyvault"
-  keyvault_name            = var.keyvault_name
+  keyvault_name               = var.keyvault_name
   location                    = var.location
   resource_group_name         = var.rgname
   service_principal_name      = var.service_principal_name
@@ -63,6 +75,7 @@ resource "azurerm_key_vault_secret" "my_key_vault_secret" {
   value        = module.service_principal.client_secret
   key_vault_id = module.keyvault.keyvault_id
 
-  depends_on = [module.keyvault]
+
+  depends_on = [module.keyvault,azurerm_role_assignment.terraform_key_vault_officer]
 
 }
