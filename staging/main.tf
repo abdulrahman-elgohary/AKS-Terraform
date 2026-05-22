@@ -78,18 +78,6 @@ resource "azurerm_key_vault_secret" "my_key_vault_secret" {
 }
 
 
-#Create azure key vault Secret
-resource "azurerm_key_vault_secret" "my_key_vault_secret" {
-  name         = module.service_principal.client_id
-  value        = module.service_principal.client_secret
-  key_vault_id = module.keyvault.keyvault_id
-
-
-  depends_on = [module.keyvault,azurerm_role_assignment.terraform_key_vault_officer]
-
-}
-
-
 # Create Azure Kubernetes Service (AKS) Cluster
 module "aks_cluster" {
   source              = "../modules/aks"
