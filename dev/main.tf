@@ -1,10 +1,9 @@
 #Define the Terraform version
 terraform {
-  required_version = "1.14.8"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.0.0"
+      version = "~>4.12.0"
     }
 
   }
