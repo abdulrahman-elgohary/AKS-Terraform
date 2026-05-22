@@ -23,3 +23,15 @@ variable "keyvault_name" {
   description = "Name of the Key Vault to be created"
 }
 
+
+variable "cluster_name" {
+  type = string
+}
+
+variable "node_pool_name" {
+  type = string
+}
+
+variable "vm_size" {
+  type = string
+}

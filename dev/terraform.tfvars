@@ -4,3 +4,8 @@ location               = "spaincentral"
 service_principal_name = "sp-dev"
 
 keyvault_name = "dev-key-vault-abdul97"
+
+
+cluster_name = "dev-aks-cluster"
+node_pool_name = "devnp"
+vm_size = "Standard_DS2_v2"

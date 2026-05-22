@@ -79,3 +79,26 @@ resource "azurerm_key_vault_secret" "my_key_vault_secret" {
   depends_on = [module.keyvault,azurerm_role_assignment.terraform_key_vault_officer]
 
 }
+
+
+# Create Azure Kubernetes Service (AKS) Cluster
+module "aks_cluster" {
+  source              = "../modules/aks"
+  cluster_name        = var.cluster_name
+  location            = var.location
+  resource_group_name = var.rgname
+  client_id = module.service_principal.client_id
+  client_secret = module.service_principal.client_secret
+  service_principal_name = var.service_principal_name
+  node_pool_name = var.node_pool_name
+  vm_size = var.vm_size
+  depends_on         = [module.service_principal]
+}  
+
+
+resource "local_file" "kubeconfig" {
+  depends_on   = [module.aks]
+  filename     = "./kubeconfig"
+  content      = module.aks.config
+  
+}

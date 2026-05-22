@@ -4,3 +4,7 @@ rgname = "rg-staging"
 service_principal_name = "sp-staging"
 
 keyvault_name = "staging-key-vault-97"
+
+cluster_name = "staging-aks-cluster"
+node_pool_name = "stagingnp"
+vm_size = "Standard_DS2_v2"
