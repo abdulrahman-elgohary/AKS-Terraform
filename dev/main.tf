@@ -81,7 +81,7 @@ resource "azurerm_key_vault_secret" "my_key_vault_secret" {
 
 
 # Create Azure Kubernetes Service (AKS) Cluster
-module "aks_cluster" {
+module "aks" {
   source              = "../modules/aks"
   cluster_name        = var.cluster_name
   location            = var.location

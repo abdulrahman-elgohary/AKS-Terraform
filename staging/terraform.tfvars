@@ -7,4 +7,4 @@ keyvault_name = "staging-key-vault-97"
 
 cluster_name = "staging-aks-cluster"
 node_pool_name = "stagingnp"
-vm_size = "Standard_DS2_v2"
+vm_size = "standard_a2_v2"

@@ -4,7 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>4.12.0"
     }
-    
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.5"
+    }
   }
 }
 
@@ -17,6 +20,8 @@ provider "azurerm" {
     }
   }
   subscription_id = var.subscription_id
+
+  
 }
 
 data "azurerm_client_config" "current" {}
@@ -78,7 +83,7 @@ resource "azurerm_key_vault_secret" "my_key_vault_secret" {
 
 
 # Create Azure Kubernetes Service (AKS) Cluster
-module "aks_cluster" {
+module "aks" {
   source              = "../modules/aks"
   cluster_name        = var.cluster_name
   location            = var.location
